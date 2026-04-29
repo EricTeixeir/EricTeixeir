@@ -89,13 +89,13 @@ No dia a dia trabalho criando e evoluindo sistemas, integrando serviços, automa
   <img 
     align="left" 
     height="180em" 
-    src="https://github-readme-stats.vercel.app/api?username=EricTeixeir&show_icons=true&theme=tokyonight&locale=pt-br&include_all_commits=true&count_private=true" 
+    src="https://github-readme-stats-red-xi-35.vercel.app/api?username=EricTeixeir&show_icons=true&theme=tokyonight&locale=pt-br&include_all_commits=true&count_private=true" 
   />
 
   <img 
     align="left" 
     height="180em" 
-    src="https://github-readme-stats.vercel.app/api/top-langs/?username=EricTeixeir&theme=tokyonight&layout=compact&langs_count=8&custom_title=Tecnologias" 
+    src="https://github-readme-stats-red-xi-35.vercel.app/api/top-langs/?username=EricTeixeir&theme=tokyonight&layout=compact&langs_count=8&custom_title=Tecnologias" 
   />
 </p>
 
