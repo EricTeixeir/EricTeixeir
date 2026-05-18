@@ -37,6 +37,7 @@ No dia a dia trabalho criando e evoluindo sistemas, integrando serviços, automa
     <img alt="Tailwind CSS" title="Tailwind CSS" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"/>
     <img align="left" alt="Vitest" title="Vitest" width="30px" style="padding-right:10px;" src="https://cdn.simpleicons.org/vitest/6E9F18"/>
     <img align="left" alt="PM2" title="PM2" width="30px" style="padding-right:10px;" src="https://cdn.simpleicons.org/pm2/2B037A"/>
+    <img align="left" alt="Redis" title="Redis" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg"/>
 </div>
 <br/>
 <br/>
