@@ -1,8 +1,8 @@
 # Como usar isso no seu GitHub
 
 Estes arquivos montam a versão "terminal" do seu perfil: heatmap de
-commits animado no topo, e retrato ASCII + card de infos lado a lado
-embaixo — tudo SVG, sem serviço de terceiros, sem token.
+commits animado no topo, e a seção de Tecnologias com um card estilo
+neofetch ao lado — tudo SVG, sem serviço de terceiros, sem token.
 
 ## 1. Crie o repositório especial do seu perfil
 
@@ -17,7 +17,6 @@ Copie para a raiz do repo:
 ```
 README.md
 contrib-heatmap.svg
-eric-ascii.svg
 info-card.svg
 scripts/
 .github/workflows/update-profile-art.yml
@@ -27,7 +26,7 @@ scripts/
 git init
 git remote add origin https://github.com/EricTeixeir/EricTeixeir.git
 git add .
-git commit -m "feat: perfil animado com heatmap + retrato ASCII"
+git commit -m "feat: perfil animado com heatmap + card de infos"
 git branch -M main
 git push -u origin main
 ```
@@ -39,14 +38,14 @@ clique em **Run workflow** uma vez manualmente pra confirmar que
 funciona. Depois disso ele roda sozinho todo dia (~06:17 UTC) e
 mantém `contrib-heatmap.svg` sempre atualizado com seus commits reais.
 
-## 4. Se quiser trocar a foto do retrato depois
+## 4. Se quiser mudar o texto do card
+
+Edite as listas `FIELDS` e `HIGHLIGHTS` no topo de
+`scripts/make_info_card.py`, depois rode:
 
 ```bash
-pip install -r scripts/requirements.txt
-python scripts/prep_photo.py sua-nova-foto.jpg     # remove fundo + realça contraste
-python scripts/make_ascii_svg.py source-prepped.png
-mv avi-ascii.svg eric-ascii.svg
-git add eric-ascii.svg && git commit -m "chore: atualizar retrato" && git push
+python3 scripts/make_info_card.py
+git add info-card.svg && git commit -m "chore: atualizar card de infos" && git push
 ```
 
 ## O que cada script faz
@@ -55,8 +54,6 @@ git add eric-ascii.svg && git commit -m "chore: atualizar retrato" && git push
 |---|---|---|
 | `fetch_contributions.py` | baixa seu calendário de contribuições público (HTML, sem token) | diariamente via Actions |
 | `render_heatmap_svg.py` | desenha o grid 53×7 animado a partir desses dados | diariamente via Actions |
-| `prep_photo.py` | remove fundo da foto + realça contraste (preto e branco) | só quando você trocar a foto |
-| `make_ascii_svg.py` | converte a foto tratada em ASCII art que "digita" sozinho | só quando você trocar a foto |
 | `make_info_card.py` | gera o card estilo neofetch (edite os textos direto no script) | quando quiser mudar o texto |
 
 ## Detalhes técnicos que valem saber
@@ -68,5 +65,10 @@ git add eric-ascii.svg && git commit -m "chore: atualizar retrato" && git push
   cabeçalhos "prompt de terminal" usam `<h3>`.
 - Espaçamento vertical: `style="margin-top"` é ignorado pelo GitHub,
   use `<br>`.
-- As larguras das imagens (`860`, `370`, `490`) são pensadas pra
-  alinhar: `370 + 490 = 860`. Se mudar uma, ajuste a outra.
+- Todo SVG embutido via `<img>` precisa ter `width`/`height`
+  explícitos além do `viewBox`, ou alguns visualizadores de markdown
+  falham em renderizar ("Invalid image source"). Os três arquivos já
+  saem assim dos scripts.
+- A seção de Tecnologias e o card ficam num `<table>` de duas colunas
+  (65% / 35%) pra ficarem lado a lado — é a forma mais confiável de
+  colocar conteúdo lado a lado no markdown do GitHub.

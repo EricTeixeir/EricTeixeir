@@ -99,7 +99,7 @@ def render(data):
 
     y0 = TOP_PAD + MONTH_LABEL_H
 
-    delay_step = 0.012
+    delay_step = 2.312
     for wi, week in enumerate(weeks):
         for di, day in enumerate(week):
             if not day["date"]:
@@ -112,7 +112,7 @@ def render(data):
             parts.append(
                 f'<rect class="cell" x="{x}" y="{y}" width="{CELL}" height="{CELL}" '
                 f'rx="2" ry="2" fill="{color}" '
-                f'style="animation: slideIn 0.4s ease-out forwards; animation-delay: {delay:.3f}s">'
+                f'style="animation: slideIn 1.4s ease-out forwards; animation-delay: {delay:.3f}s">'
                 f'<title>{title}</title></rect>'
             )
 

@@ -9,17 +9,17 @@ import os
 
 FIELDS = [
     ("os", "Linux + Windows Server"),
-    ("role", "Full Stack Developer | Security-focused"),
+    ("role", "Full Stack Developer"),
     ("location", "Maringá, PR - Brasil"),
     ("stack", "Node.js, React, PostgreSQL, Docker, Nginx"),
     ("focus", "Dev + Infra + Observabilidade"),
 ]
 
 HIGHLIGHTS = [
-    "Full Stack development & backend systems",
-    "APIs REST, integrações & automação",
-    "Infrastructure, Docker & observability",
-    "Cybersecurity: Linux hardening, CrowdSec & security practices",
+    "Análise e Desenvolvimento de Sistemas",
+    "APIs REST, integrações, automação",
+    "Observabilidade: Grafana, Loki, Zabbix",
+    "Segurança: CrowdSec, hardening Linux",
 ]
 
 WIDTH = 490
@@ -72,12 +72,14 @@ def render():
         f'<rect x="0.5" y="0.5" width="{WIDTH-1}" height="{height-1}" rx="6" '
         f'fill="{BG}" stroke="{BORDER}"/>'
     )
+    # Linux-style title bar: flat dark bar, no colored traffic-light buttons
     parts.append(f'<rect x="0.5" y="0.5" width="{WIDTH-1}" height="28" rx="6" fill="{TITLE_BAR}"/>')
     parts.append(f'<rect x="0.5" y="20" width="{WIDTH-1}" height="9" fill="{TITLE_BAR}"/>')
     parts.append(f'<line x1="0.5" y1="28.5" x2="{WIDTH-0.5}" y2="28.5" stroke="{BORDER}"/>')
     parts.append(
         f'<text x="14" y="18" fill="{DIM}" font-size="11">eric@linux</text>'
     )
+    # window control glyphs, Linux/GNOME style (minimize / maximize / close), right-aligned
     cx = WIDTH - 20
     parts.append(f'<text x="{cx}" y="18" fill="{DIM}" font-size="12" text-anchor="middle">&#x2715;</text>')
     parts.append(f'<text x="{cx-20}" y="18" fill="{DIM}" font-size="12" text-anchor="middle">&#x25a1;</text>')

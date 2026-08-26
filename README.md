@@ -3,16 +3,6 @@
 <h3><code>eric@github ~ $ ./contributions.sh</code></h3>
 <img src="./contrib-heatmap.svg" width="860" />
 
-<br><br>
-
-<h3><code>eric@github ~ $ whoami</code></h3>
-<table>
-<tr>
-<td valign="top"><img src="./eric-ascii.svg" width="370" /></td>
-<td valign="top"><img src="./info-card.svg" width="490" /></td>
-</tr>
-</table>
-
 </div>
 
 ---
@@ -38,6 +28,10 @@ No dia a dia trabalho criando e evoluindo sistemas, integrando serviços, automa
 </div>
 
 ---
+
+<table>
+<tr>
+<td valign="top" width="65%">
 
 ## 🚀 Tecnologias
 
@@ -85,6 +79,15 @@ No dia a dia trabalho criando e evoluindo sistemas, integrando serviços, automa
 
 <br/>
 <br/>
+
+</td>
+<td valign="top" width="35%">
+
+<img src="./info-card.svg" width="100%" />
+
+</td>
+</tr>
+</table>
 
 ---
 
