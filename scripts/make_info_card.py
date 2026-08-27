@@ -5,21 +5,22 @@ Each line fades/slides in on a short stagger. Writes info-card.svg.
 
 Edit NAME, TITLE, BIO or CONTACT below to change the content.
 """
-import textwrap
+import re
 from xml.sax.saxutils import escape as xml_escape
 
 NAME = "Eric Teixeira"
 TITLE = "Desenvolvedor Full Stack & Infraestrutura"
 
+# wrap a word/phrase in **double asterisks** to highlight it in the card
 BIO = [
-    "Desenvolvedor com formação em Análise e Desenvolvimento de Sistemas, "
+    "Desenvolvedor com formação em **Análise e Desenvolvimento de Sistemas**, "
     "experiência prática em desenvolvimento web, backend e infraestrutura. "
-    "Atuo construindo sistemas, APIs, integrações e automações, além de "
-    "trabalhar com bancos de dados, Docker, Linux e ambientes de produção.",
+    "Atuo construindo sistemas, **APIs**, integrações e automações, além de "
+    "trabalhar com bancos de dados, **Docker**, Linux e ambientes de produção.",
     "Tenho perfil hands-on e gosto de atuar de ponta a ponta, conectando "
     "desenvolvimento, infraestrutura e operações. Atualmente, estou "
-    "direcionando minha carreira para Cybersecurity, aprofundando "
-    "conhecimentos em segurança de aplicações, redes, hardening e "
+    "direcionando minha carreira para **Cybersecurity**, aprofundando "
+    "conhecimentos em **segurança de aplicações**, redes, **hardening** e "
     "infraestrutura.",
 ]
 
@@ -45,6 +46,52 @@ PROMPT_USER = "#7ee787"
 PROMPT_DIM = "#8b949e"
 VAL_COLOR = "#c9d1d9"
 DIM = "#8b949e"
+HL_TEXT = "#f2cc60"   # highlighted keyword text (warm gold)
+HL_BG = "#e3b341"     # highlighted keyword chip background (used at low opacity)
+
+CHAR_W = 7.6  # approx monospace glyph advance at font-size 13, used to size highlight chips
+
+
+def tokenize(text):
+    """Split text into (word, highlighted) pairs; **word(s)** mark a highlight."""
+    tokens = []
+    for i, part in enumerate(re.split(r"\*\*(.+?)\*\*", text)):
+        highlighted = i % 2 == 1
+        for word in part.split():
+            tokens.append((word, highlighted))
+    return tokens
+
+
+def wrap_tokens(tokens, width):
+    """Word-wrap tokens to `width` visible characters per line."""
+    lines, cur, cur_len = [], [], 0
+    for word, hl in tokens:
+        add_len = len(word) if not cur else len(word) + 1
+        if cur and cur_len + add_len > width:
+            lines.append(cur)
+            cur, cur_len, add_len = [], 0, len(word)
+        cur.append((word, hl))
+        cur_len += add_len
+    if cur:
+        lines.append(cur)
+    return lines
+
+
+def line_runs(line_tokens):
+    """Merge consecutive same-style tokens into (highlighted, start_char, text) runs."""
+    runs, cur_words, cur_hl, cur_start, pos = [], [], None, 0, 0
+    for word, hl in line_tokens:
+        if cur_words and hl != cur_hl:
+            runs.append((cur_hl, cur_start, " ".join(cur_words)))
+            cur_words = []
+        if not cur_words:
+            cur_start = pos
+        cur_words.append(word)
+        cur_hl = hl
+        pos += len(word) + 1
+    if cur_words:
+        runs.append((cur_hl, cur_start, " ".join(cur_words)))
+    return runs
 
 
 def build_rows():
@@ -52,8 +99,8 @@ def build_rows():
     rows = [("prompt", "whoami"), ("name", NAME, TITLE)]
     rows.append(("prompt", "cat sobre.txt"))
     for i, para in enumerate(BIO):
-        for line in textwrap.wrap(para, WRAP_COLS):
-            rows.append(("text", line))
+        for line_tokens in wrap_tokens(tokenize(para), WRAP_COLS):
+            rows.append(("text", line_tokens))
         if i < len(BIO) - 1:
             rows.append(("blank",))
     rows.append(("prompt", "cat contato.txt"))
@@ -132,11 +179,25 @@ def render():
                 f'</g>'
             )
         elif kind == "text":
-            _, line = row
+            _, line_tokens = row
+            g_parts = []
+            tspans = []
+            for hl, start, text in line_runs(line_tokens):
+                x = PAD_X + start * CHAR_W
+                if hl:
+                    chip_w = len(text) * CHAR_W
+                    g_parts.append(
+                        f'<rect x="{x - 3:.1f}" y="{y - 12}" width="{chip_w + 6:.1f}" height="16" rx="3" '
+                        f'fill="{HL_BG}" fill-opacity="0.16"/>'
+                    )
+                    tspans.append(
+                        f'<tspan x="{x:.1f}" fill="{HL_TEXT}" font-weight="700">{xml_escape(text)}</tspan>'
+                    )
+                else:
+                    tspans.append(f'<tspan x="{x:.1f}">{xml_escape(text)}</tspan>')
+            g_parts.append(f'<text y="{y}" fill="{VAL_COLOR}" font-size="13">{"".join(tspans)}</text>')
             parts.append(
-                f'<g class="line" style="animation-delay: {delay:.2f}s">'
-                f'<text x="{PAD_X}" y="{y}" fill="{VAL_COLOR}" font-size="13">{xml_escape(line)}</text>'
-                f'</g>'
+                f'<g class="line" style="animation-delay: {delay:.2f}s">' + "".join(g_parts) + '</g>'
             )
         elif kind == "contact":
             _, label, value = row

@@ -90,8 +90,8 @@ def render(data):
         css_lines.append(
             f"  @keyframes reveal{lvl} {{\n"
             f"    0%   {{ opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: {FLASH}; }}\n"
-            f"    55%  {{ opacity: 1; transform: translate(0, 0) scale(1); fill: {FLASH}; }}\n"
-            f"    100% {{ opacity: 1; transform: translate(0, 0) scale(1); fill: {color}; }}\n"
+            f"    35%  {{ opacity: 1; transform: translate(0, 0) scale(1); }}\n"
+            f"    100% {{ fill: {color}; }}\n"
             f"  }}"
         )
     parts.append("<style>\n" + "\n".join(css_lines) + "\n</style>")
