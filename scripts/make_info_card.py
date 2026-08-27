@@ -15,10 +15,24 @@ TITLE = "Desenvolvedor Full Stack & Infraestrutura"
 # ordered key -> value (str) or key -> list[str] for a JSON array
 INFO = [
     ("formacao", "Análise e Desenvolvimento de Sistemas"),
-    ("atua_com", ["APIs", "integrações", "automações", "bancos de dados", "Docker", "Linux"]),
+    ("atuacao", [
+        "desenvolvimento full stack",
+        "APIs REST",
+        "integrações",
+        "automação",
+        "infraestrutura",
+        "observabilidade",
+    ]),
     ("perfil", "hands-on, ponta a ponta"),
+    ("especialidade", "Full Stack + Infraestrutura"),
     ("direcionamento", "Cybersecurity"),
-    ("foco_atual", ["segurança de aplicações", "redes", "hardening"]),
+    ("foco_atual", [
+        "segurança de aplicações",
+        "redes",
+        "hardening",
+        "segurança de infraestrutura",
+    ]),
+    ("stack", ["Node.js", "React", "PostgreSQL", "Docker", "Linux", "Nginx", "Grafana", "Zabbix"]),
 ]
 
 CONTACT = [
@@ -48,6 +62,9 @@ JSON_STR = "#f2cc60"    # JSON string values (also used for array items)
 JSON_PUNCT = "#8b949e"  # braces, brackets, commas, colons
 
 
+BLANK = (-1, [])  # spacer row between top-level fields, matches the source formatting
+
+
 def q(s):
     return f'"{s}"'
 
@@ -71,6 +88,7 @@ def build_json_lines():
             lines.append((1, [("],", JSON_PUNCT)]))
         else:
             kv(1, key, value, comma=True)
+        lines.append(BLANK)
 
     lines.append((1, [(q("contato"), JSON_KEY), (": {", JSON_PUNCT)]))
     for j, (key, value) in enumerate(CONTACT):
@@ -81,12 +99,14 @@ def build_json_lines():
     return lines
 
 
+BLANK_H = 10  # spacer row height, shorter than a full line
+
 def build_rows():
-    """Return a flat list of ('prompt'|'name'|'json', ...) rows."""
+    """Return a flat list of ('prompt'|'name'|'json'|'blank', ...) rows."""
     rows = [("prompt", "whoami"), ("name", NAME, TITLE)]
     rows.append(("prompt", "cat sobre.json"))
     for indent, segments in build_json_lines():
-        rows.append(("json", indent, segments))
+        rows.append(("blank",) if indent == -1 else ("json", indent, segments))
     return rows
 
 
@@ -95,7 +115,12 @@ def render():
 
     height = PAD_TOP + TITLEBAR_H
     for row in rows:
-        height += LINE_H * 2 if row[0] == "name" else LINE_H
+        if row[0] == "blank":
+            height += BLANK_H
+        elif row[0] == "name":
+            height += LINE_H * 2
+        else:
+            height += LINE_H
         if row[0] == "prompt":
             height += PARA_GAP
     height += 20
@@ -128,6 +153,9 @@ def render():
     delay = 0.08
     for row in rows:
         kind = row[0]
+        if kind == "blank":
+            y += BLANK_H
+            continue
         y += LINE_H
         if kind == "prompt":
             _, cmd = row
