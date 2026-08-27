@@ -6,6 +6,7 @@ Each line fades/slides in on a short stagger. Writes info-card.svg.
 Edit NAME, TITLE, BIO or CONTACT below to change the content.
 """
 import textwrap
+from xml.sax.saxutils import escape as xml_escape
 
 NAME = "Eric Teixeira"
 TITLE = "Desenvolvedor Full Stack & Infraestrutura"
@@ -77,7 +78,7 @@ def render():
     height += 20
 
     parts = [
-        f'<svg viewBox="0 0 {WIDTH} {height}" xmlns="http://www.w3.org/2000/svg" '
+        f'<svg width="{WIDTH}" height="{height}" viewBox="0 0 {WIDTH} {height}" xmlns="http://www.w3.org/2000/svg" '
         f'font-family="ui-monospace, SFMono-Regular, Consolas, monospace">',
         f"""
 <style>
@@ -113,7 +114,7 @@ def render():
             parts.append(
                 f'<g class="line" style="animation-delay: {delay:.2f}s">'
                 f'<text x="{PAD_X}" y="{y}" fill="{PROMPT_USER}" font-size="13">eric@linux</text>'
-                f'<text x="{PAD_X + 78}" y="{y}" fill="{PROMPT_DIM}" font-size="13">~ $ {cmd}</text>'
+                f'<text x="{PAD_X + 78}" y="{y}" fill="{PROMPT_DIM}" font-size="13">~ $ {xml_escape(cmd)}</text>'
                 f'</g>'
             )
             y += PARA_GAP
@@ -121,28 +122,28 @@ def render():
             _, name, title = row
             parts.append(
                 f'<g class="line" style="animation-delay: {delay:.2f}s">'
-                f'<text x="{PAD_X}" y="{y}" fill="{ACCENT}" font-size="16" font-weight="700">{name}</text>'
+                f'<text x="{PAD_X}" y="{y}" fill="{ACCENT}" font-size="16" font-weight="700">{xml_escape(name)}</text>'
                 f'</g>'
             )
             y += LINE_H
             parts.append(
                 f'<g class="line" style="animation-delay: {delay + 0.05:.2f}s">'
-                f'<text x="{PAD_X}" y="{y}" fill="{VAL_COLOR}" font-size="13">{title}</text>'
+                f'<text x="{PAD_X}" y="{y}" fill="{VAL_COLOR}" font-size="13">{xml_escape(title)}</text>'
                 f'</g>'
             )
         elif kind == "text":
             _, line = row
             parts.append(
                 f'<g class="line" style="animation-delay: {delay:.2f}s">'
-                f'<text x="{PAD_X}" y="{y}" fill="{VAL_COLOR}" font-size="13">{line}</text>'
+                f'<text x="{PAD_X}" y="{y}" fill="{VAL_COLOR}" font-size="13">{xml_escape(line)}</text>'
                 f'</g>'
             )
         elif kind == "contact":
             _, label, value = row
             parts.append(
                 f'<g class="line" style="animation-delay: {delay:.2f}s">'
-                f'<text x="{PAD_X}" y="{y}" fill="{PROMPT_USER}" font-size="13" font-weight="600">{label}</text>'
-                f'<text x="{PAD_X + 90}" y="{y}" fill="{VAL_COLOR}" font-size="13">{value}</text>'
+                f'<text x="{PAD_X}" y="{y}" fill="{PROMPT_USER}" font-size="13" font-weight="600">{xml_escape(label)}</text>'
+                f'<text x="{PAD_X + 90}" y="{y}" fill="{VAL_COLOR}" font-size="13">{xml_escape(value)}</text>'
                 f'</g>'
             )
         delay += 0.045

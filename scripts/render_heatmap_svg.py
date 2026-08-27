@@ -7,7 +7,7 @@ import json
 from datetime import datetime, timedelta
 
 PALETTE = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353", "#69f0a0"]
-FLASH = "#eafff5"  # bright highlight each cell flashes before settling on its level color
+FLASH = "#8fe6b8"  # soft light-green highlight each cell flashes before settling on its level color
 
 CELL = 11
 GAP = 3
@@ -17,10 +17,10 @@ TOP_PAD = 20
 MONTH_LABEL_H = 15
 
 # one-shot reveal timing: diagonal cascade (columns sweep faster than rows),
-# tuned so the whole ~53x7 grid finishes in ~1.5s instead of dragging on
-CELL_DUR = 0.42
-COL_T = 0.014
-ROW_T = 0.035
+# tuned so the whole ~53x7 grid finishes in ~3.5s
+CELL_DUR = 0.5
+COL_T = 0.045
+ROW_T = 0.11
 
 
 def load():
@@ -80,7 +80,7 @@ def render(data):
 
     parts = []
     parts.append(
-        f'<svg viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" '
+        f'<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" '
         f'font-family="ui-monospace, SFMono-Regular, Consolas, monospace">'
     )
     parts.append(f'<rect width="{width}" height="{height}" fill="none"/>')
