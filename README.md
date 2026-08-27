@@ -29,6 +29,7 @@
     <img align="left" alt="Vitest" title="Vitest" width="30px" style="padding-right:10px;" src="https://cdn.simpleicons.org/vitest/6E9F18"/>
     <img align="left" alt="PM2" title="PM2" width="30px" style="padding-right:10px;" src="https://cdn.simpleicons.org/pm2/2B037A"/>
     <img align="left" alt="Redis" title="Redis" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg"/>
+    <img alt="Swagger" title="Swagger / OpenAPI" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg"/>
 </div>
 <br/>
 <br/>
@@ -52,7 +53,11 @@
 <img align="left" alt="Windows Server" title="Windows Server" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg"/>
 <img align="left" alt="Grafana" title="Grafana" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg"/>
 <img align="left" alt="Loki" title="Grafana Loki" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/loki.svg"/>
+<img align="left" alt="Grafana Alloy" title="Grafana Alloy" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/alloy.svg"/>
+<img align="left" alt="Prometheus" title="Prometheus" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg"/>
 <img align="left" alt="CrowdSec" title="CrowdSec" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/crowdsec.svg"/>
+<img align="left" alt="WireGuard" title="WireGuard" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/wireguard.svg"/>
+<img align="left" alt="PowerShell" title="PowerShell" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/powershell/powershell-original.svg"/>
 <img alt="Zabbix" title="Zabbix" width="30px" style="padding-right:10px;" src="https://img.shields.io/badge/Zabbix-CC0000?style=flat-square&logo=zabbix&logoColor=white"/>
 
 <br/>
