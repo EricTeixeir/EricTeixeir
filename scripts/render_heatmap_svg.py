@@ -7,6 +7,7 @@ import json
 from datetime import datetime, timedelta
 
 PALETTE = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353", "#69f0a0"]
+FLASH = "#eafff5"  # bright highlight each cell flashes before settling on its level color
 
 CELL = 11
 GAP = 3
@@ -14,6 +15,12 @@ STEP = CELL + GAP
 LEFT_PAD = 28
 TOP_PAD = 20
 MONTH_LABEL_H = 15
+
+# one-shot reveal timing: diagonal cascade (columns sweep faster than rows),
+# tuned so the whole ~53x7 grid finishes in ~1.5s instead of dragging on
+CELL_DUR = 0.42
+COL_T = 0.014
+ROW_T = 0.035
 
 
 def load():
@@ -78,17 +85,16 @@ def render(data):
     )
     parts.append(f'<rect width="{width}" height="{height}" fill="none"/>')
 
-    parts.append(
-        """
-<style>
-  .cell { opacity: 0; transform-box: fill-box; transform-origin: center; }
-  @keyframes slideIn {
-    from { opacity: 0; transform: translate(-6px, -6px) scale(0.4); }
-    to   { opacity: 1; transform: translate(0, 0) scale(1); }
-  }
-</style>
-"""
-    )
+    css_lines = ["  .cell { opacity: 0; transform-box: fill-box; transform-origin: center; }"]
+    for lvl, color in enumerate(PALETTE):
+        css_lines.append(
+            f"  @keyframes reveal{lvl} {{\n"
+            f"    0%   {{ opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: {FLASH}; }}\n"
+            f"    55%  {{ opacity: 1; transform: translate(0, 0) scale(1); fill: {FLASH}; }}\n"
+            f"    100% {{ opacity: 1; transform: translate(0, 0) scale(1); fill: {color}; }}\n"
+            f"  }}"
+        )
+    parts.append("<style>\n" + "\n".join(css_lines) + "\n</style>")
 
     # month labels
     for wi, name in month_labels(weeks):
@@ -99,20 +105,21 @@ def render(data):
 
     y0 = TOP_PAD + MONTH_LABEL_H
 
-    delay_step = 2.312
     for wi, week in enumerate(weeks):
         for di, day in enumerate(week):
             if not day["date"]:
                 continue
             x = LEFT_PAD + wi * STEP
             y = y0 + di * STEP
-            color = PALETTE[min(day["level"], len(PALETTE) - 1)]
-            delay = (wi + di) * delay_step
+            level = min(day["level"], len(PALETTE) - 1)
+            color = PALETTE[level]
+            delay = wi * COL_T + di * ROW_T
             title = f'{day["count"]} contributions on {day["date"]}' if day["count"] else f'No contributions on {day["date"]}'
             parts.append(
                 f'<rect class="cell" x="{x}" y="{y}" width="{CELL}" height="{CELL}" '
                 f'rx="2" ry="2" fill="{color}" '
-                f'style="animation: slideIn 1.4s ease-out forwards; animation-delay: {delay:.3f}s">'
+                f'style="animation: reveal{level} {CELL_DUR}s cubic-bezier(.2,.8,.2,1) forwards; '
+                f'animation-delay: {delay:.3f}s">'
                 f'<title>{title}</title></rect>'
             )
 
@@ -143,6 +150,6 @@ def render(data):
 if __name__ == "__main__":
     data = load()
     svg = render(data)
-    with open("contrib-heatmap.svg", "w") as f:
+    with open("contrib-heatmap.svg", "w", encoding="utf-8") as f:
         f.write(svg)
     print("Wrote contrib-heatmap.svg")

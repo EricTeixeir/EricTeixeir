@@ -1,8 +1,9 @@
 # Como usar isso no seu GitHub
 
 Estes arquivos montam a versão "terminal" do seu perfil: heatmap de
-commits animado no topo, e a seção de Tecnologias com um card estilo
-neofetch ao lado — tudo SVG, sem serviço de terceiros, sem token.
+commits animado e, logo abaixo, um card estilo terminal com sua
+identidade, bio e contato — tudo SVG, sem serviço de terceiros, sem
+token.
 
 ## 1. Crie o repositório especial do seu perfil
 
@@ -40,7 +41,7 @@ mantém `contrib-heatmap.svg` sempre atualizado com seus commits reais.
 
 ## 4. Se quiser mudar o texto do card
 
-Edite as listas `FIELDS` e `HIGHLIGHTS` no topo de
+Edite `NAME`, `TITLE`, `BIO` ou `CONTACT` no topo de
 `scripts/make_info_card.py`, depois rode:
 
 ```bash
@@ -67,8 +68,5 @@ git add info-card.svg && git commit -m "chore: atualizar card de infos" && git p
   use `<br>`.
 - Todo SVG embutido via `<img>` precisa ter `width`/`height`
   explícitos além do `viewBox`, ou alguns visualizadores de markdown
-  falham em renderizar ("Invalid image source"). Os três arquivos já
+  falham em renderizar ("Invalid image source"). Os dois arquivos já
   saem assim dos scripts.
-- A seção de Tecnologias e o card ficam num `<table>` de duas colunas
-  (65% / 35%) pra ficarem lado a lado — é a forma mais confiável de
-  colocar conteúdo lado a lado no markdown do GitHub.

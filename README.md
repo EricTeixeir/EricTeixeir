@@ -3,35 +3,13 @@
 <h3><code>eric@github ~ $ ./contributions.sh</code></h3>
 <img src="./contrib-heatmap.svg" width="860" />
 
+<br><br>
+
+<img src="./info-card.svg" width="620" />
+
 </div>
 
 ---
-
-# 👨🏻‍💻 Eric Teixeira
-
-**`Desenvolvedor Full Stack & Infraestrutura`**
-
-Desenvolvedor com formação em **Análise e Desenvolvimento de Sistemas**, com atuação prática em desenvolvimento web e vivência sólida em **infraestrutura e operações de TI**.
-
-No dia a dia trabalho criando e evoluindo sistemas, integrando serviços, automatizando rotinas, ajustando ambientes em produção e resolvendo demandas técnicas que impactam diretamente a operação. Tenho perfil hands-on, foco em entrega e facilidade para transitar entre código, banco de dados e infraestrutura quando o problema exige.
-
-<div align="left">
-  <a href="https://github.com/EricTeixeir" target="_blank">
-    <img alt="GitHub" title="Meu GitHub" src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
-  </a>
-  <a href="https://www.linkedin.com/in/eric-teixeira-almeida/" target="_blank">
-    <img alt="LinkedIn" title="Meu LinkedIn" src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
-  </a>
-  <a href="mailto:ericteixeiradealmeida@gmail.com" target="_blank">
-    <img alt="E-mail" title="Meu E-mail" src="https://img.shields.io/badge/E--mail-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
-  </a>
-</div>
-
----
-
-<table>
-<tr>
-<td valign="top" width="65%">
 
 ## 🚀 Tecnologias
 
@@ -79,15 +57,6 @@ No dia a dia trabalho criando e evoluindo sistemas, integrando serviços, automa
 
 <br/>
 <br/>
-
-</td>
-<td valign="top" width="35%">
-
-<img src="./info-card.svg" width="100%" />
-
-</td>
-</tr>
-</table>
 
 ---
 

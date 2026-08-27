@@ -1,62 +1,84 @@
 """
-Hand-authored neofetch-style info card, Linux terminal look (no macOS
-traffic-light buttons). Each row fades/slides in on a short stagger.
-Writes info-card.svg.
+Hand-authored terminal-card SVG: identity, bio and contact info typed
+out like a shell session (whoami / cat sobre.txt / cat contato.txt).
+Each line fades/slides in on a short stagger. Writes info-card.svg.
 
-Edit the fields below to change the content.
+Edit NAME, TITLE, BIO or CONTACT below to change the content.
 """
-import os
+import textwrap
 
-FIELDS = [
-    ("os", "Linux + Windows Server"),
-    ("role", "Full Stack Developer"),
-    ("location", "Maringá, PR - Brasil"),
-    ("stack", "Node.js, React, PostgreSQL, Docker, Nginx"),
-    ("focus", "Dev + Infra + Observabilidade"),
+NAME = "Eric Teixeira"
+TITLE = "Desenvolvedor Full Stack & Infraestrutura"
+
+BIO = [
+    "Desenvolvedor com formação em Análise e Desenvolvimento de Sistemas, "
+    "experiência prática em desenvolvimento web, backend e infraestrutura. "
+    "Atuo construindo sistemas, APIs, integrações e automações, além de "
+    "trabalhar com bancos de dados, Docker, Linux e ambientes de produção.",
+    "Tenho perfil hands-on e gosto de atuar de ponta a ponta, conectando "
+    "desenvolvimento, infraestrutura e operações. Atualmente, estou "
+    "direcionando minha carreira para Cybersecurity, aprofundando "
+    "conhecimentos em segurança de aplicações, redes, hardening e "
+    "infraestrutura.",
 ]
 
-HIGHLIGHTS = [
-    "Análise e Desenvolvimento de Sistemas",
-    "APIs REST, integrações, automação",
-    "Observabilidade: Grafana, Loki, Zabbix",
-    "Segurança: CrowdSec, hardening Linux",
+CONTACT = [
+    ("github", "github.com/EricTeixeir"),
+    ("linkedin", "linkedin.com/in/eric-teixeira-almeida"),
+    ("email", "ericteixeiradealmeida@gmail.com"),
 ]
 
-WIDTH = 490
-LINE_H = 22
+WIDTH = 620
+WRAP_COLS = 72          # ~classic 80-col terminal, minus padding
 PAD_X = 20
 PAD_TOP = 24
+TITLEBAR_H = 28
+LINE_H = 21
+PARA_GAP = 6            # extra gap after a paragraph, before the next prompt
 
 BG = "#0d1117"
 BORDER = "#30363d"
 TITLE_BAR = "#161b22"
 ACCENT = "#58a6ff"
-KEY_COLOR = "#7ee787"
+PROMPT_USER = "#7ee787"
+PROMPT_DIM = "#8b949e"
 VAL_COLOR = "#c9d1d9"
 DIM = "#8b949e"
 
 
-def row(label, value, y, delay):
-    return f"""
-<g class="line" style="animation-delay: {delay:.2f}s">
-  <text x="{PAD_X}" y="{y}" fill="{KEY_COLOR}" font-size="13" font-weight="600">{label}</text>
-  <text x="{PAD_X + 100}" y="{y}" fill="{VAL_COLOR}" font-size="13">{value}</text>
-</g>"""
+def build_rows():
+    """Return a flat list of ('prompt'|'name'|'text'|'contact', ...) rows."""
+    rows = [("prompt", "whoami"), ("name", NAME, TITLE)]
+    rows.append(("prompt", "cat sobre.txt"))
+    for i, para in enumerate(BIO):
+        for line in textwrap.wrap(para, WRAP_COLS):
+            rows.append(("text", line))
+        if i < len(BIO) - 1:
+            rows.append(("blank",))
+    rows.append(("prompt", "cat contato.txt"))
+    for label, value in CONTACT:
+        rows.append(("contact", label, value))
+    return rows
 
 
 def render():
-    rows = list(FIELDS)
-    for i, h in enumerate(HIGHLIGHTS):
-        rows.append(("highlights" if i == 0 else "", h))
+    rows = build_rows()
 
-    height = PAD_TOP + 40 + len(rows) * LINE_H + 24
+    height = PAD_TOP + TITLEBAR_H
+    for row in rows:
+        if row[0] == "blank":
+            height += 4
+        elif row[0] == "name":
+            height += LINE_H * 2  # name line + title line
+        else:
+            height += LINE_H
+        if row[0] == "prompt":
+            height += PARA_GAP
+    height += 20
 
-    parts = []
-    parts.append(
+    parts = [
         f'<svg viewBox="0 0 {WIDTH} {height}" xmlns="http://www.w3.org/2000/svg" '
-        f'font-family="ui-monospace, SFMono-Regular, Consolas, monospace">'
-    )
-    parts.append(
+        f'font-family="ui-monospace, SFMono-Regular, Consolas, monospace">',
         f"""
 <style>
   .line {{ opacity: 0; transform-box: fill-box; transform-origin: left; animation: fadeSlide 0.35s ease-out forwards; }}
@@ -65,42 +87,65 @@ def render():
     to   {{ opacity: 1; transform: translateX(0); }}
   }}
 </style>
-"""
-    )
-
-    parts.append(
-        f'<rect x="0.5" y="0.5" width="{WIDTH-1}" height="{height-1}" rx="6" '
-        f'fill="{BG}" stroke="{BORDER}"/>'
-    )
-    # Linux-style title bar: flat dark bar, no colored traffic-light buttons
-    parts.append(f'<rect x="0.5" y="0.5" width="{WIDTH-1}" height="28" rx="6" fill="{TITLE_BAR}"/>')
-    parts.append(f'<rect x="0.5" y="20" width="{WIDTH-1}" height="9" fill="{TITLE_BAR}"/>')
-    parts.append(f'<line x1="0.5" y1="28.5" x2="{WIDTH-0.5}" y2="28.5" stroke="{BORDER}"/>')
-    parts.append(
-        f'<text x="14" y="18" fill="{DIM}" font-size="11">eric@linux</text>'
-    )
-    # window control glyphs, Linux/GNOME style (minimize / maximize / close), right-aligned
+""",
+        f'<rect x="0.5" y="0.5" width="{WIDTH-1}" height="{height-1}" rx="6" fill="{BG}" stroke="{BORDER}"/>',
+        f'<rect x="0.5" y="0.5" width="{WIDTH-1}" height="{TITLEBAR_H}" rx="6" fill="{TITLE_BAR}"/>',
+        f'<rect x="0.5" y="20" width="{WIDTH-1}" height="9" fill="{TITLE_BAR}"/>',
+        f'<line x1="0.5" y1="{TITLEBAR_H + 0.5}" x2="{WIDTH - 0.5}" y2="{TITLEBAR_H + 0.5}" stroke="{BORDER}"/>',
+        f'<text x="14" y="18" fill="{DIM}" font-size="11">eric@linux</text>',
+    ]
     cx = WIDTH - 20
     parts.append(f'<text x="{cx}" y="18" fill="{DIM}" font-size="12" text-anchor="middle">&#x2715;</text>')
     parts.append(f'<text x="{cx-20}" y="18" fill="{DIM}" font-size="12" text-anchor="middle">&#x25a1;</text>')
     parts.append(f'<text x="{cx-40}" y="18" fill="{DIM}" font-size="12" text-anchor="middle">&#x2212;</text>')
-    parts.append(
-        f'<text x="{WIDTH/2}" y="18" fill="{DIM}" font-size="11" text-anchor="middle">~ neofetch</text>'
-    )
+    parts.append(f'<text x="{WIDTH/2}" y="18" fill="{DIM}" font-size="11" text-anchor="middle">~ about</text>')
 
-    y = PAD_TOP + 28
-    parts.append(
-        f'<text x="{PAD_X}" y="{y}" fill="{ACCENT}" font-size="15" font-weight="700">Eric Teixeira</text>'
-    )
-    y += 6
-    parts.append(f'<line x1="{PAD_X}" y1="{y}" x2="{WIDTH-PAD_X}" y2="{y}" stroke="{BORDER}"/>')
-    y += LINE_H
-
-    delay = 0.1
-    for label, value in rows:
-        parts.append(row(label, value, y, delay))
+    y = PAD_TOP + TITLEBAR_H
+    delay = 0.08
+    for row in rows:
+        kind = row[0]
+        if kind == "blank":
+            y += 4
+            continue
         y += LINE_H
-        delay += 0.09
+        if kind == "prompt":
+            _, cmd = row
+            parts.append(
+                f'<g class="line" style="animation-delay: {delay:.2f}s">'
+                f'<text x="{PAD_X}" y="{y}" fill="{PROMPT_USER}" font-size="13">eric@linux</text>'
+                f'<text x="{PAD_X + 78}" y="{y}" fill="{PROMPT_DIM}" font-size="13">~ $ {cmd}</text>'
+                f'</g>'
+            )
+            y += PARA_GAP
+        elif kind == "name":
+            _, name, title = row
+            parts.append(
+                f'<g class="line" style="animation-delay: {delay:.2f}s">'
+                f'<text x="{PAD_X}" y="{y}" fill="{ACCENT}" font-size="16" font-weight="700">{name}</text>'
+                f'</g>'
+            )
+            y += LINE_H
+            parts.append(
+                f'<g class="line" style="animation-delay: {delay + 0.05:.2f}s">'
+                f'<text x="{PAD_X}" y="{y}" fill="{VAL_COLOR}" font-size="13">{title}</text>'
+                f'</g>'
+            )
+        elif kind == "text":
+            _, line = row
+            parts.append(
+                f'<g class="line" style="animation-delay: {delay:.2f}s">'
+                f'<text x="{PAD_X}" y="{y}" fill="{VAL_COLOR}" font-size="13">{line}</text>'
+                f'</g>'
+            )
+        elif kind == "contact":
+            _, label, value = row
+            parts.append(
+                f'<g class="line" style="animation-delay: {delay:.2f}s">'
+                f'<text x="{PAD_X}" y="{y}" fill="{PROMPT_USER}" font-size="13" font-weight="600">{label}</text>'
+                f'<text x="{PAD_X + 90}" y="{y}" fill="{VAL_COLOR}" font-size="13">{value}</text>'
+                f'</g>'
+            )
+        delay += 0.045
 
     parts.append("</svg>")
     return "\n".join(parts)
@@ -108,6 +153,6 @@ def render():
 
 if __name__ == "__main__":
     svg = render()
-    with open("info-card.svg", "w") as f:
+    with open("info-card.svg", "w", encoding="utf-8") as f:
         f.write(svg)
-    print("Wrote info-card.svg")
+    print(f"Wrote info-card.svg ({len(svg)} bytes)")
