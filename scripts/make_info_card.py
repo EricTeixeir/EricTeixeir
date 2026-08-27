@@ -24,7 +24,7 @@ INFO = [
         "observabilidade",
     ]),
     ("perfil", "hands-on, ponta a ponta"),
-    ("especialidade", "Full Stack + Infraestrutura"),
+    ("especialidade", "Full Stack + Security-focused"),
     ("direcionamento", "Cybersecurity"),
     ("foco_atual", [
         "segurança de aplicações",
