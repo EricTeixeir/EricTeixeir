@@ -10,7 +10,7 @@ from xml.sax.saxutils import escape as xml_escape
 
 HOST = "kali"  # nod to Kali Linux, matches the Cybersecurity direction below
 NAME = "Eric Teixeira"
-TITLE = "Desenvolvedor Full Stack & Infraestrutura"
+TITLE = "Full Stack Developer | Security-focused"
 
 # ordered key -> value (str) or key -> list[str] for a JSON array
 INFO = [
