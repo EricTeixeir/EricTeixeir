@@ -41,7 +41,7 @@ mantém `contrib-heatmap.svg` sempre atualizado com seus commits reais.
 
 ## 4. Se quiser mudar o texto do card
 
-Edite `NAME`, `TITLE`, `BIO` ou `CONTACT` no topo de
+Edite `NAME`, `TITLE`, `INFO` ou `CONTACT` no topo de
 `scripts/make_info_card.py`, depois rode:
 
 ```bash

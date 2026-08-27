@@ -3,34 +3,34 @@
 <style>
   .cell { opacity: 0; transform-box: fill-box; transform-origin: center; }
   @keyframes reveal0 {
-    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #8fe6b8; }
-    35%  { opacity: 1; transform: translate(0, 0) scale(1); }
-    100% { fill: #161b22; }
+    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #00e676; }
+    55%  { opacity: 1; transform: translate(0, 0) scale(1); fill: #00e676; }
+    100% { opacity: 1; transform: translate(0, 0) scale(1); fill: #161b22; }
   }
   @keyframes reveal1 {
-    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #8fe6b8; }
-    35%  { opacity: 1; transform: translate(0, 0) scale(1); }
-    100% { fill: #0e4429; }
+    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #00e676; }
+    55%  { opacity: 1; transform: translate(0, 0) scale(1); fill: #00e676; }
+    100% { opacity: 1; transform: translate(0, 0) scale(1); fill: #0e4429; }
   }
   @keyframes reveal2 {
-    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #8fe6b8; }
-    35%  { opacity: 1; transform: translate(0, 0) scale(1); }
-    100% { fill: #006d32; }
+    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #00e676; }
+    55%  { opacity: 1; transform: translate(0, 0) scale(1); fill: #00e676; }
+    100% { opacity: 1; transform: translate(0, 0) scale(1); fill: #006d32; }
   }
   @keyframes reveal3 {
-    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #8fe6b8; }
-    35%  { opacity: 1; transform: translate(0, 0) scale(1); }
-    100% { fill: #26a641; }
+    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #00e676; }
+    55%  { opacity: 1; transform: translate(0, 0) scale(1); fill: #00e676; }
+    100% { opacity: 1; transform: translate(0, 0) scale(1); fill: #26a641; }
   }
   @keyframes reveal4 {
-    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #8fe6b8; }
-    35%  { opacity: 1; transform: translate(0, 0) scale(1); }
-    100% { fill: #39d353; }
+    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #00e676; }
+    55%  { opacity: 1; transform: translate(0, 0) scale(1); fill: #00e676; }
+    100% { opacity: 1; transform: translate(0, 0) scale(1); fill: #39d353; }
   }
   @keyframes reveal5 {
-    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #8fe6b8; }
-    35%  { opacity: 1; transform: translate(0, 0) scale(1); }
-    100% { fill: #69f0a0; }
+    0%   { opacity: 0; transform: translate(-6px, -6px) scale(0.4); fill: #00e676; }
+    55%  { opacity: 1; transform: translate(0, 0) scale(1); fill: #00e676; }
+    100% { opacity: 1; transform: translate(0, 0) scale(1); fill: #69f0a0; }
   }
 </style>
 <text x="28" y="20" fill="#8b949e" font-size="10">Aug</text>
