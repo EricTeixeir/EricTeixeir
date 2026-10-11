@@ -1,50 +1,15 @@
 {
   "username": "EricTeixeir",
-  "fetched_at": "2026-10-10T12:26:35.113247+00:00",
-  "total_contributions": 2524,
+  "fetched_at": "2026-10-11T12:44:21.993932+00:00",
+  "total_contributions": 2513,
   "current_streak": 0,
-  "longest_streak": 47,
+  "longest_streak": 48,
   "best_day": {
     "date": "2026-08-26",
     "level": 4,
     "count": 88
   },
   "days": [
-    {
-      "date": "2025-10-05",
-      "level": 0,
-      "count": 0
-    },
-    {
-      "date": "2025-10-06",
-      "level": 0,
-      "count": 0
-    },
-    {
-      "date": "2025-10-07",
-      "level": 0,
-      "count": 0
-    },
-    {
-      "date": "2025-10-08",
-      "level": 1,
-      "count": 5
-    },
-    {
-      "date": "2025-10-09",
-      "level": 1,
-      "count": 4
-    },
-    {
-      "date": "2025-10-10",
-      "level": 1,
-      "count": 3
-    },
-    {
-      "date": "2025-10-11",
-      "level": 0,
-      "count": 0
-    },
     {
       "date": "2025-10-12",
       "level": 0,
@@ -1862,6 +1827,11 @@
     },
     {
       "date": "2026-10-10",
+      "level": 1,
+      "count": 1
+    },
+    {
+      "date": "2026-10-11",
       "level": 0,
       "count": 0
     }
